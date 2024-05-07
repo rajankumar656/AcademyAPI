@@ -5,7 +5,7 @@ namespace AcademyAPI.Model
     public class Customer
     {
         [Key]
-        public int Id { get; set; }
+        public int Cust_Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -20,6 +20,6 @@ namespace AcademyAPI.Model
         public int Phone { get; set; }
 
         //Relationships
-        public List<Order_Customer> Orders_Customers { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

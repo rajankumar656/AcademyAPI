@@ -26,33 +26,34 @@ namespace AcademyAPI.Controllers
             return Ok(allOrders);
         }
 
-        public IActionResult GetById(int id)
-        {
+        //[HttpGet("{id}")]
+        //public IActionResult GetById(int id)
+        //{
 
-            _context.SaveChanges();
+        //    _context.SaveChanges();
 
-            var allOrders = _context.Orders.ToList();
+        //    var detailOrder = _context.Orders.ToList();
 
-            return Ok(allOrders);
-        }
+        //    return Ok(detailOrder);
+        //}
 
-        [HttpPost]
-        public IActionResult Post()
-        {
-            return Ok("Hello World via Post");
-        }
+        //[HttpPost]
+        //public IActionResult Post()
+        //{
+        //    return Ok("Hello World via Post");
+        //}
 
-        [HttpPut]
-        public IActionResult Put()
-        {
-            return Ok("Hello World via Put");
-        }
+        //[HttpPut]
+        //public IActionResult Put()
+        //{
+        //    return Ok("Hello World via Put");
+        //}
 
-        [HttpDelete]
-        public IActionResult Delete()
-        {
-            return Ok("Hello World via Delete");
-        }
+        //[HttpDelete]
+        //public IActionResult Delete()
+        //{
+        //    return Ok("Hello World via Delete");
+        //}
 
     }
 }

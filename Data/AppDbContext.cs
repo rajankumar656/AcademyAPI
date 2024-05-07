@@ -12,15 +12,10 @@ namespace AcademyAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Order_Customer>().HasKey(oc => new
-            {
-                //jjj
-                oc.OrderId,
-                oc.CustomerId
-            });
+           // modelBuilder.Entity<Order>().HasOne(o => o.Order).WithOne(oc => oc.Orders_Customers).HasForeignKey(oc => oc.OrderId);
+            modelBuilder.Entity<Order>().HasOne(c => c.Customer).WithMany(oc => oc.Orders).HasForeignKey(oc => oc.Cust_Id);
 
-            modelBuilder.Entity<Order_Customer>().HasOne(o => o.Order).WithMany(oc => oc.Orders_Customers).HasForeignKey(oc => oc.OrderId);
-            modelBuilder.Entity<Order_Customer>().HasOne(c => c.Customer).WithMany(oc => oc.Orders_Customers).HasForeignKey(oc => oc.CustomerId);
+            modelBuilder.Entity<Order>().Property(o => o.Amount).HasPrecision(10, 2);
             
             base.OnModelCreating(modelBuilder);
         }
@@ -28,6 +23,5 @@ namespace AcademyAPI.Data
 
         public DbSet<Customer> Customers { get; set; }
 
-        public DbSet<Order_Customer> Orders_Customers { get; set; }
     }
 }
