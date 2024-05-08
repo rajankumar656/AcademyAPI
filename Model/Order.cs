@@ -10,13 +10,13 @@ namespace AcademyAPI.Model
         [Required]
         public string Email { get; set; }
 
-        [Required]
-        public int Cust_Id { get; set; }
+        //[Required]
+        //public int Cust_Id { get; set; }
 
         [Required]
         public decimal Amount { get; set; }
 
-        public Customer Customer { get; set; }
+       // public Customer Customer { get; set; }
 
     }
 }

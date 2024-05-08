@@ -14,34 +14,34 @@ public class AppDbInitialize
             context.Database.EnsureCreated();
 
             //Customers
-            if (!context.Customers.Any())
-            {
-                context.Customers.AddRange(new List<Customer>()
-                {
-                    new Customer()
-                    {
-                        Name = "Rajan",
-                        Email = "raj@tee.com",
-                        Address = "123 Street",
-                        Phone = 1234567890
-                    },
-                    new Customer()
-                    {
-                        Name = "Shrey",
-                        Email = "shy@tee.com",
-                        Address = "abc Street",
-                        Phone = 1297654544
-                    },
-                    new Customer()
-                    {
-                        Name = "Rish",
-                        Email = "rish@tee.com",
-                        Address = "xyz Street",
-                        Phone = 1234654544
-                    }
-                });
-                context.SaveChanges();
-            }
+            //if (!context.Customers.Any())
+            //{
+            //    context.Customers.AddRange(new List<Customer>()
+            //    {
+            //        new Customer()
+            //        {
+            //            Name = "Rajan",
+            //            Email = "raj@tee.com",
+            //            Address = "123 Street",
+            //            Phone = 1234567890
+            //        },
+            //        new Customer()
+            //        {
+            //            Name = "Shrey",
+            //            Email = "shy@tee.com",
+            //            Address = "abc Street",
+            //            Phone = 1297654544
+            //        },
+            //        new Customer()
+            //        {
+            //            Name = "Rish",
+            //            Email = "rish@tee.com",
+            //            Address = "xyz Street",
+            //            Phone = 1234654544
+            //        }
+            //    });
+            //    context.SaveChanges();
+            //}
                 //Orders
             if (!context.Orders.Any())
             {
@@ -50,20 +50,20 @@ public class AppDbInitialize
                     new Order()
                     {
                        Email = "raj@cd.com",
-                       Cust_Id = 1,
+                       //Cust_Id = 1,
                        Amount = 19.12m
 
                     },
                     new Order()
                     {
                         Email = "tab@cd.com",
-                        Cust_Id = 2,
+                        //Cust_Id = 2,
                         Amount = 70.45m
                     },
                     new Order()
                     {
                         Email = "gab@cd.com",
-                        Cust_Id = 3,
+                        //Cust_Id = 3,
                         Amount = 100.10m
 
                     }
