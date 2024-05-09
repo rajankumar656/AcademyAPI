@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AcademyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/order")]
     [ApiController]
     public class OrderController : ControllerBase
     {
