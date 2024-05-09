@@ -50,17 +50,46 @@ namespace AcademyAPI.Controllers
             return CreatedAtAction(nameof(GetOrderById), new {id = order.OrderId}, order); // Return a 201 Created response with the order
         }
 
-        //[HttpPut]
-        //public IActionResult Put()
-        //{
-        //    return Ok("Hello World via Put");
-        //}
+        //PUT: api/Order/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, Order updatedOrder)
+        {
+            var existingOrder = await _context.Orders.FindAsync(id);
+            if (existingOrder == null) 
+            {
+                return NotFound();
+            }
 
-        //[HttpDelete]
-        //public IActionResult Delete()
-        //{
-        //    return Ok("Hello World via Delete");
-        //}
+            if(!Util.Util.isAmtEmailValid(updatedOrder.Email, updatedOrder.Amount)) 
+                return BadRequest("Invalid email or Amount");
 
+            // step 2 -- validate request body
+            existingOrder.Email = updatedOrder.Email;
+            existingOrder.Amount = updatedOrder.Amount;
+
+            _context.Orders.Update(existingOrder);
+
+            _context.SaveChanges();
+            return Ok(existingOrder);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var existingOrder = await _context.Orders.FindAsync(id);
+            if (existingOrder == null)
+            {
+                return NotFound("Order doesn't exist");
+            }
+
+            if (id == existingOrder.OrderId)
+            {
+                _context.Orders.Remove(existingOrder);
+                _context.SaveChanges();
+            }
+                
+
+            return Ok("order deleted");
+        }
     }
 }
