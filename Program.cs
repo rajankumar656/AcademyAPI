@@ -26,6 +26,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//AppDbInitialize.Seed(app);
+AppDbInitialize.Seed(app);
 
 app.Run();
