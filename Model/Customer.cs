@@ -13,6 +13,6 @@ namespace AcademyAPI.Model
         //[Required]
         public string Phone { get; set; }
 
-
+        public List<Order> Orders { get; set; }
     }
 }

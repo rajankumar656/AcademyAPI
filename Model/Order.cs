@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AcademyAPI.Model
 {
@@ -10,13 +11,13 @@ namespace AcademyAPI.Model
         [Required]
         public string Email { get; set; }
 
-        //[Required]
-        //public int Cust_Id { get; set; }
+        [ForeignKey("Customer")]
+        public int Cust_Id { get; set; }
 
         [Required]
         public decimal Amount { get; set; }
 
-       // public Customer Customer { get; set; }
+        
 
     }
 }

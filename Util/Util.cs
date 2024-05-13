@@ -20,5 +20,16 @@ namespace AcademyAPI.Util
 
             return emailRegex.IsMatch(email);
         }
+
+        public static bool isNamePhoneValid(string name, string phone)
+        {
+            if (name == null || name.Length == 0 || name.Length > 30)
+                return false;
+
+            if(phone == null || phone.Length == 0 || phone.Length > 14)
+                return false;
+              
+                return true;
+        }
     }
 }

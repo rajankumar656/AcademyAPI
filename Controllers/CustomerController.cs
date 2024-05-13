@@ -28,12 +28,26 @@ namespace AcademyAPI.Controllers
         [HttpGet("{id}")] //Route Parameter
         public async Task<ActionResult<Customer>> GetCustomerById(int id)
         {
-            var detailCustomer = await _context.Customers.FindAsync(id);
-            if (detailCustomer == null)
+            // var detailCustomer = await _context.Customers.FindAsync(id);
+            List<Customer> customers = await _context.Customers.ToListAsync();
+
+            Customer customer = null;
+            for (int i = 0; i < customers.Count; i++)
+            {
+                customer = customers[i];
+
+                if (customer.Cust_Id == id)
+                    break;
+           
+
+                customer = null;
+            }
+
+            if (customer == null)
             {
                 return NotFound("Customer doesn't exist"); // Returns a 404 Not Found response if no order is found
             }
-            return detailCustomer; // Returns the order with a 200 OK response
+            return customer; // Returns the order with a 200 OK response
         }
 
         [HttpPost]
@@ -50,46 +64,51 @@ namespace AcademyAPI.Controllers
             return CreatedAtAction(nameof(GetCustomerById), new { id = customer.Cust_Id }, customer); // Return a 201 Created response with the order
         }
 
-        ////PUT: api/Order/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Edit(int id, Order updatedOrder)
-        //{
-        //    var existingOrder = await _context.Orders.FindAsync(id);
-        //    if (existingOrder == null) 
-        //    {
-        //        return NotFound();
-        //    }
+        //PUT: api/Order/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditAsync(int id, Customer customer)
+        {
+            //Get specific customer in db
+            Customer dbcustomer = await _context.Customers.FindAsync(id);
 
-        //    if(!Util.Util.isAmtEmailValid(updatedOrder.Email, updatedOrder.Amount)) 
-        //        return BadRequest("Invalid email or Amount");
+            //
+            if (dbcustomer == null)
+            {
+                return BadRequest("Customer doesn't exist");
+            }
 
-        //    // step 2 -- validate request body
-        //    existingOrder.Email = updatedOrder.Email;
-        //    existingOrder.Amount = updatedOrder.Amount;
+            //Validate Name and Phone
+            if (!Util.Util.isNamePhoneValid(customer.Name, customer.Phone))
+            {
+                return BadRequest("Invalid Name or Phone");
+            }
 
-        //    _context.Orders.Update(existingOrder);
+            dbcustomer.Name = customer.Name;
+            dbcustomer.Phone = customer.Phone;
 
-        //    _context.SaveChanges();
-        //    return Ok(existingOrder);
-        //}
+            _context.Customers.Update(dbcustomer);
+            _context.SaveChanges();
+          
+            
+            return Ok(dbcustomer);
+        }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var existingOrder = await _context.Orders.FindAsync(id);
-        //    if (existingOrder == null)
-        //    {
-        //        return NotFound("Order doesn't exist");
-        //    }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            //Get specific customer in db
+            Customer dbcustomer = await _context.Customers.FindAsync(id);
 
-        //    if (id == existingOrder.OrderId)
-        //    {
-        //        _context.Orders.Remove(existingOrder);
-        //        _context.SaveChanges();
-        //    }
+            //check customer exist in db
+            if (dbcustomer == null)
+            {
+                return BadRequest("Customer doesn't exist");
+            }
 
-
-        //    return Ok("order deleted");
-        //}
+            //Remove
+            _context.Customers.Remove(dbcustomer);
+            _context.SaveChanges();
+            return Ok("customer deleted");
+        }
     }
 }
